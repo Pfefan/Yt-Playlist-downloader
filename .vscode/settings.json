@@ -1,0 +1,7 @@
+{
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=PyQt6",
+        "--errors-only"
+    ],
+    "python.linting.pydocstyleEnabled": false,
+}
