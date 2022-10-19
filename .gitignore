@@ -5,6 +5,7 @@ __pycache__/
 
 # custom
 out_aud/
+*.txt
 
 # C extensions
 *.so
