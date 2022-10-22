@@ -64,7 +64,9 @@ class MainWindow(QWidget):
         self.show()
 
     def pick_dir(self):
-        self.savepath = QFileDialog.getExistingDirectory(self, "Select Folder")
+        self.config["savepath"] = QFileDialog.getExistingDirectory(self, "Select Folder")
+        with open("config.conf", "w+") as file:
+                json.dump(self.config, file)
 
     def syncbtn_click(self):
         Thread(target=down(self, self.config["savepath"]).main, daemon=True).start()

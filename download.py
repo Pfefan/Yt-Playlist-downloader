@@ -23,13 +23,13 @@ class down():
             pfile.close()
 
         for url in urls:
-            counter = 1
+            counter = 0
             p = Playlist(url)
+            self.GUI.pbar.setValue(0)
             self.GUI.pbar.setMaximum(len(p.videos))
             if not os.path.exists(os.path.join(self.path, p.title)):       # creates playlist dir if it doesnt exist
                 os.mkdir(os.path.join(self.path, p.title))
             files = os.listdir(os.path.join(self.path, p.title))
-
             self.GUI.pbarlabel.setText(f'Syncing: {p.title}')
             for video in p.videos:
                 self.GUI.pbarlabel.setText(f'Syncing: {p.title} {counter}/{len(p.videos)}')
