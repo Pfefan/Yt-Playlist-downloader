@@ -32,30 +32,32 @@ class MainWindow(QWidget):
         titlelable = QLabel("YouTube Playlist Sync by Pfefan")
         self.pbarlabel = QLabel("Progress...")
         self.pbar = QProgressBar()
-        playlist_input = QLineEdit()
+        self.playlist_input = QLineEdit()
         seldir_btn = QPushButton("Select save directory")
         add_btn = QPushButton("Add Playlist")
         sync_btn = QPushButton("Sync playlist")
 
+        titlelable.setFont(QFont('Comic Sans MS', 15))
         self.pbarlabel.setMinimumWidth(200)
+        
+        add_btn.clicked.connect(self.add_playlist)
         seldir_btn.clicked.connect(self.pick_dir)
-
         sync_btn.clicked.connect(self.syncbtn_click)
-        sync_btn.setMaximumWidth(100)
-        sync_btn.setMaximumHeight(40)
 
         grid.addWidget(titlelable, 0, 0)
 
-        grid.addWidget(playlist_input, 1, 0)
+        grid.addWidget(self.playlist_input, 1, 0)
         grid.addWidget(add_btn, 1, 1)
 
         grid.addWidget(seldir_btn, 2, 1)
 
-        grid.addWidget(sync_btn, 3, 0, 3, 1)
+        grid.addWidget(sync_btn, 3, 1)
 
-        grid.addWidget(self.pbar, 4, 0, 4 ,1)
-        grid.addWidget(self.pbarlabel, 4, 1, 4 ,1)
+        grid.addWidget(self.pbar, 4, 0, 4, 1)
+        grid.addWidget(self.pbarlabel, 4, 1, 4, 1)
 
+
+        self.setStyleSheet("background-color: #d3d2db")
         self.resize(480, 270)
         self.setWindowTitle('Yt-Playlist-downloader')
         self.setWindowIcon(QtGui.QIcon("icon.png"))
@@ -66,6 +68,16 @@ class MainWindow(QWidget):
 
     def syncbtn_click(self):
         Thread(target=down(self, self.config["savepath"]).main, daemon=True).start()
+
+    def add_playlist(self):
+        with open("playlists.txt", "r", encoding="utf8") as readfile:
+            filecontent = readfile.readlines()
+
+        with open("playlists.txt", "a", encoding="utf8") as appendfile:
+            content = self.playlist_input.text()
+            if content not in filecontent and content + "\n" not in filecontent:
+                appendfile.write("\n" + content)
+                self.playlist_input.setText("")
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
