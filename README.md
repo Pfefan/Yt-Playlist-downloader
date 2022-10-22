@@ -4,6 +4,7 @@
 A small program that allows you to download with little effort a list of playlists in the form of audio files, 
 which are then stored in a structured way that you can keep them apart.
 
+If you add new songs to your playlist and sync them in the same folder, only the new songs will be downloaded and the already downloaded songs will not be affected.
 
 ## Screenshots
 
