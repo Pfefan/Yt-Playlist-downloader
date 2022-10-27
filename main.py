@@ -72,13 +72,16 @@ class MainWindow(QWidget):
         Thread(target=down(self, self.config["savepath"]).main, daemon=True).start()
 
     def add_playlist(self):
+        if not os.path.exists("playlists.txt"):
+            open("playlists.txt", "w+").close()
+
         with open("playlists.txt", "r", encoding="utf8") as readfile:
             filecontent = readfile.readlines()
 
         with open("playlists.txt", "a", encoding="utf8") as appendfile:
             content = self.playlist_input.text()
             if content not in filecontent and content + "\n" not in filecontent:
-                appendfile.write("\n" + content)
+                appendfile.write(content + "\n")
                 self.playlist_input.setText("")
         
 if __name__ == "__main__":
