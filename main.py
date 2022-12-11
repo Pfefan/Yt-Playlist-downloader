@@ -26,6 +26,10 @@ class MainWindow(QWidget):
         with open("config.conf", "r") as file:
             self.config = json.load(file)
 
+        if not os.path.isdir(self.config["savepath"]):
+            # Create "subdir"
+            os.makedirs(self.config["savepath"])
+
     def initUI(self):
         grid = QGridLayout()
         self.setLayout(grid)

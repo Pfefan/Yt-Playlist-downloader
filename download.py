@@ -27,10 +27,14 @@ class down():
             p = Playlist(url)
             self.GUI.pbar.setValue(0)
             self.GUI.pbar.setMaximum(len(p.videos))
-            if not os.path.exists(os.path.join(self.path, p.title)):       # creates playlist dir if it doesnt exist
+            print(self.path + "\\" + p.title)
+
+            if not os.path.exists(self.path + "\\" + p.title):       # creates playlist dir if it doesnt exist
                 os.mkdir(os.path.join(self.path, p.title))
             files = os.listdir(os.path.join(self.path, p.title))
+
             self.GUI.pbarlabel.setText(f'Syncing: {p.title}')
+
             for video in p.videos:
                 self.GUI.pbarlabel.setText(f'Syncing: {p.title} {counter}/{len(p.videos)}')
                 self.GUI.pbar.setValue(counter)
